@@ -1,9 +1,14 @@
-# TemplateFlow - The simplest tool for AI content creation
+# TemplateFlow - Build AI workflows, not prompts.
+
 
 <p align="center">
   <picture>
     <img alt="TemplateFLow Page" src="TemplateFlow.png" />
   </picture>
+</p>
+
+<p align="center">
+  <a href="./README_EN.md">English</a> | <b>简体中文</b>
 </p>
 
 <p align="center"> 
@@ -16,18 +21,19 @@
 
 <!-- **TemplateFlow** 内置了丰富的模版节点，无需从零开始构建，只需选择合适的模版节点，即可快速搭建复杂的工作流。 -->
 
-**TemplateFlow** 是一个面向创作者与开发者的可视化 AI 工作流编辑器，内置丰富的模版节点，通过拖拽节点的方式快速构建复杂的生成流程。
+**TemplateFlow** 是一个让你 **不用反复调 Prompt、不用记参数**，就能快速搭建 AI 生成流程的可视化工作流工具。
+
 
 
 ## 🚀 为什么选择 TemplateFlow？
 
 TemplateFlow 围绕三个核心理念构建
 
-- **📂 真正的零门槛：模块化思维**： 内置深度预设的功能模板，不再需要从零研究参数。拖出节点，连接逻辑，剩下的交给 TemplateFlow。
+- ✅ 真正的零门槛：模块化思维： 内置深度预设的功能模板，不再需要从零研究参数。拖出节点，连接逻辑，剩下的交给 TemplateFlow。
 
-- **🌍 自由分享：创意即文件**： 内置完整的导入导出功能。支持一键导出轻量化 JSON 文件，或加载社区大神分享的方案，瞬间拥有同款 AI 生产力。
+- ✅ 自由分享：创意即文件： 内置完整的导入导出功能。支持一键导出轻量化 JSON 文件，或加载社区大神分享的方案，瞬间拥有同款 AI 生产力。
 
-- **🛡️ 100%开源：由社区驱动**：核心功能完全免费且开源。没有隐藏收费，没有功能限制。
+- ✅ 100%开源：由社区驱动：核心功能完全免费且开源。没有隐藏收费，没有功能限制。
 
 <!-- 十个以内的核心功能 -->
 
@@ -80,7 +86,15 @@ TemplateFlow 的核心在于将复杂的 AI 参数封装为语义化模板：
 30 秒上手： 拖出一个“风格转换模板”，连入你的图片，点击运行——就是这么简单。
 
 
+## 📢 加入SparkShort 创作者社区
 
+在 Discord 中，您可以：
+- 🚀 抢先体验新的视频模型和功能
+- 🧪 参与公开发布前的私人 Beta 测试
+- 🧠 了解创作者如何利用 AI 短视频实现盈利
+- 🗳 对路线图功能进行投票（您的投票至关重要）
+
+👉 [加入 Discord](https://discord.gg/uxpfAXTB)
 
 ## 🛠️ 如何运行 (Quick Start)
 
@@ -126,14 +140,6 @@ TemplateFlow 的核心在于将复杂的 AI 参数封装为语义化模板：
 
 [ ] 局部重绘: 增加 Canvas 编辑器内直接涂抹功能。
 
-## 📢 加入创作者社区
-
-想要获取更多 **AI 短视频生成技巧**、**AI Vibe Coding** 以及 **AI 变现全攻略**吗？
-
-- [加入 Discord 开发者 & 创作者频道](https://discord.gg/uxpfAXTB)
-- [关注项目 Wiki：从零开始的 AI 副业指南](你的链接)
-
-**TemplateFlow 不仅仅是一个工具，它是你进入 AI 视频领域的入场券。**
 
 ## 贡献
 
@@ -141,6 +147,5 @@ TemplateFlow 的核心在于将复杂的 AI 参数封装为语义化模板：
 
 ---
 
-**TemplateFlow: 简单高效的节点式工作流构建工具**
-
+⭐ 如果 TemplateFlow 节省了您的时间或启发了您的工作流程，请考虑给它点个赞（加星标）——这真的有助于项目的成长。
 

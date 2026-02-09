@@ -1,0 +1,157 @@
+# TemplateFlow - Build AI workflows, not prompts.
+
+
+<p align="center">
+  <picture>
+    <img alt="TemplateFLow Page" src="TemplateFlow.png" />
+  </picture>
+</p>
+
+> 只需几分钟即可构建人工智能工作流程——无需费力处理提示、参数或脚本。
+
+<p align="center">
+  <b>English</b> | <a href="./README.md">简体中文</a>
+</p>
+
+<p align="center"> 
+<img src="https://img.shields.io/github/license/heyaohuo/TemplateFlow?style=flat-square" alt="license" /> 
+<a href="https://discord.gg/uxpfAXTB">
+    <img src="https://img.shields.io/badge/Discord-Join%20Us-7289da?style=flat-square&logo=discord&logoColor=white" alt="Discord" />
+  </a>
+<img src="https://img.shields.io/badge/Node.js-22.0+-green?style=flat-square" alt="node version" /> 
+</p>
+
+
+**TemplateFlow** is a visual AI workflow editor for creators and developers who want results fast.
+
+Instead of tuning endless prompts or memorizing parameters, you drag ready-made AI templates onto a canvas, connect them, and run.
+
+From idea → workflow → output, in minutes.
+
+## 🤔 Why TemplateFlow?
+
+Most AI workflow tools are powerful — but overwhelming.
+
+TemplateFlow focuses on clarity, speed, and reuse:
+
+- ❌ No blank canvas anxiety
+
+- ❌ No parameter deep-dives
+
+- ❌ No scripting required
+
+- ✅ Just pick a template, connect the logic, and generate.
+
+## 🆚 TemplateFlow vs Other AI Workflow Tools
+
+| Feature | TemplateFlow | ComfyUI / Others |
+|------|------|------|
+| Zero-setup templates | ✅ Built-in | ❌ Mostly manual |
+| Beginner friendly | ✅ Drag & run | ❌ Steep learning curve |
+| Template sharing | ✅ JSON-based | ⚠️ Limited |
+| Open source | ✅ 100% | ⚠️ Partial |
+| Creator-focused | ✅ | ❌ Developer-first |
+
+
+🎬 See It In Action
+
+
+> Build your first AI workflow in under 30 seconds.
+<!-- 十个以内的核心功能 -->
+
+## ✨ Key Features
+
+- 🚀 Zero-config AI templates — no parameter tuning
+
+- 🧩 Drag-and-drop workflow builder
+
+- 📦 Import & export workflows as lightweight JSON files
+
+- 🔒 Local-first & privacy-friendly deployment
+
+- 🤖 Multi-model support
+
+- ♾️ Infinite canvas with smooth zoom & pan
+
+- ⏪ Undo / redo & keyboard shortcuts
+
+- 💻 Extensible architecture for developers
+
+
+
+
+
+<!-- 示例gif -->
+
+
+
+
+## 📢 Join the TemplateFlow Community
+
+- Why join our Discord?
+
+- 🚧 Early access to new features
+
+- 🧠 Share & request workflow templates
+
+- 🗳️ Vote on roadmap priorities
+
+- 🛠️ Get help directly from the maintainer
+
+👉 [Join Discord](https://discord.gg/uxpfAXTB)
+
+## 🛠️ Quick Start
+
+**Prerequisites:**
+
+- Node.js 22.0+
+
+- An AI provider API key
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/heyaohuo/TemplateFlow.git
+   cd TemplateFlow
+   ```
+
+2. Install dependencies
+   ```bash
+   npm install
+   ```
+
+3. Configure environment variables
+
+      ```bash
+        # API Keys
+        FAL_KEY=YOUR_FAL_API_KEY
+
+
+        # Cloudflare R2 Worker Configuration
+        NEXT_PUBLIC_WORKER_UPLOAD_URL=YOUR_WORKER_UPLOAD_URL
+        NEXT_PUBLIC_R2_PUBLIC_URL=YOUR_R2_PUBLIC_URL
+      ```
+
+
+4. Start the dev server
+   ```bash
+   npm run dev
+   ```
+
+5. Open `http://localhost:3000`。
+
+
+## 🗺️ Roadmap
+
+- Roadmap priorities are driven by community feedback.
+
+
+## 👋 Maintained & Open
+
+TemplateFlow is actively developed and maintained.
+
+If you find this project useful, consider starring ⭐ the repo — it helps the project grow and stay sustainable.
+
+
+## 🤝 Contributing
+
+Contributions, issues, and template ideas are welcome!
