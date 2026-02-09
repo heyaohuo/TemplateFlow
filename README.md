@@ -6,6 +6,7 @@
     <img alt="TemplateFLow Page" src="TemplateFlow.png" />
   </picture>
 </p>
+> 只需几分钟即可构建人工智能工作流程——无需费力处理提示、参数或脚本。
 
 <p align="center">
   <a href="./README_EN.md">English</a> | <b>简体中文</b>
@@ -23,31 +24,49 @@
 
 **TemplateFlow** 是一个让你 **不用反复调 Prompt、不用记参数**，就能快速搭建 AI 生成流程的可视化工作流工具。
 
+无需反复调整提示词或参数，只需将预制的AI模板拖放到画布上，连接起来即可运行。
 
 
-## 🚀 为什么选择 TemplateFlow？
+## 🤔 为什么选择 TemplateFlow？
 
-TemplateFlow 围绕三个核心理念构建
+TemplateFlow 强调简单、速度和可重用性：
 
-- ✅ 真正的零门槛：模块化思维： 内置深度预设的功能模板，不再需要从零研究参数。拖出节点，连接逻辑，剩下的交给 TemplateFlow。
+- ❌ 无需担心从零开始创作
 
-- ✅ 自由分享：创意即文件： 内置完整的导入导出功能。支持一键导出轻量化 JSON 文件，或加载社区大神分享的方案，瞬间拥有同款 AI 生产力。
+- ❌ 无需深入研究参数设置
 
-- ✅ 100%开源：由社区驱动：核心功能完全免费且开源。没有隐藏收费，没有功能限制。
+- ❌ 无需编写脚本
+
+- ✅ 只需选择模板，连接节点，即可生成。
+
+## 🆚 TemplateFlow 与其他 AI Workflow 工具对比
+
+| 功能 | TemplateFlow | ComfyUI / 其他 |
+|------|------|------|
+| 零配置模板 | ✅ 内置 | ❌ 大部分需要手动配置 |
+| 新手友好 | ✅ 拖放即可运行 | ❌ 学习曲线陡峭 |
+| 模板共享 | ✅ 基于 JSON | ⚠️ 功能有限 |
+| 开源 | ✅ 100% | ⚠️ 部分开源 |
+| 注重创作者体验 | ✅ | ❌ 开发者优先 |
 
 <!-- 十个以内的核心功能 -->
 
 ## ✨ 核心功能 (Features)
 
+- 🚀&nbsp;直接使用模板——无需配置任何参数。
+
+- 🧩&nbsp;极简拖拽交互 (Drag-and-Drop UX)
+
+- 📦&nbsp;以轻量级 JSON 文件格式导入和导出工作流程
+
 - 🔒&nbsp;本地部署保护隐私安全 (Security)
+
 - 🤖&nbsp;多模型支持 (Multiple Models)
-- 🖱️&nbsp;极简拖拽交互 (Drag-and-Drop UX)
+
 - ♾️&nbsp;无限画布 (Infinite Canvas)
-- 🔍&nbsp;自由缩放与平移 (Zoom & Pan)
-- ⌨️&nbsp;快捷键操作 (Keyboard Shortcuts)
-- 📤&nbsp;多模式文件上传 (Easy Upload)
+
 - ⏪&nbsp;支持撤销/重做 (Undo / Redo)
-- ⚡&nbsp;轻量化高性能引擎 (High-Performance Engine)
+
 - 💻&nbsp;支持二次开发 (Extensible Design)
 
 > 🚀 30 秒上手，零代码构建 AI 工作流
@@ -77,28 +96,28 @@ TemplateFlow 围绕三个核心理念构建
 
 <!-- 示例gif -->
 
-## 📖 运行原理 (Quick Concept)
-
-TemplateFlow 的核心在于将复杂的 AI 参数封装为语义化模板：
-
-[输入数据/图片] ➔ [AI 逻辑模板] ➔ [结果预览/输出]
-
-30 秒上手： 拖出一个“风格转换模板”，连入你的图片，点击运行——就是这么简单。
-
 
 ## 📢 加入SparkShort 创作者社区
 
-在 Discord 中，您可以：
-- 🚀 抢先体验新的视频模型和功能
-- 🧪 参与公开发布前的私人 Beta 测试
-- 🧠 了解创作者如何利用 AI 短视频实现盈利
-- 🗳 对路线图功能进行投票（您的投票至关重要）
+- 为什么要加入 Discord ？
+
+- 🚧 抢先体验新功能
+
+- 🧠 分享和获取工作流程模板
+
+- 🗳️ 参与路线图优先级投票
+
+- 🛠️ 直接获得维护者的帮助
 
 👉 [加入 Discord](https://discord.gg/uxpfAXTB)
 
 ## 🛠️ 如何运行 (Quick Start)
 
-**Note:** 在开始之前，请确保你的系统已安装Nodejs 22.0+，获得API Key。
+**先决条件：**
+
+- Node.js 22.0 或更高版本
+
+- 一个 Fal AI provider的 API 密钥
 
 1. 克隆项目：
    ```bash
@@ -132,20 +151,20 @@ TemplateFlow 的核心在于将复杂的 AI 参数封装为语义化模板：
 
 
 ## 🗺️ 路线图 (Roadmap)
-[ ] 支持更多图片生成模型 (如 Seedream v4 / reve )。
 
-[ ] 支持更多视频生成模型 (如 Luma / Runway)。
+- 路线图的优先事项由社区反馈决定。
 
-[ ] 社区模版库: 直接在应用内浏览并下载云端模版。
 
-[ ] 局部重绘: 增加 Canvas 编辑器内直接涂抹功能。
+---
+
+## 👋 持续维护，开源可用
+
+TemplateFlow 正在积极开发和维护中。
+
+如果您觉得这个项目有用，请考虑给它点个星 ⭐ —— 这将有助于项目的成长和持续发展。
 
 
 ## 贡献
 
 欢迎贡献代码、提交问题或分享您的模版节点！请参考 [CONTRIBUTING.md](CONTRIBUTING.md) 获取更多信息。
-
----
-
-⭐ 如果 TemplateFlow 节省了您的时间或启发了您的工作流程，请考虑给它点个赞（加星标）——这真的有助于项目的成长。
 

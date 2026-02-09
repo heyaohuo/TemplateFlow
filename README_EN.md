@@ -7,7 +7,7 @@
   </picture>
 </p>
 
-> 只需几分钟即可构建人工智能工作流程——无需费力处理提示、参数或脚本。
+> Build AI workflows in minutes — without fighting prompts, parameters, or scripts.
 
 <p align="center">
   <b>English</b> | <a href="./README.md">简体中文</a>
@@ -40,7 +40,7 @@ TemplateFlow focuses on clarity, speed, and reuse:
 
 - ❌ No scripting required
 
-- ✅ Just pick a template, connect the logic, and generate.
+- ✅ Just pick a template, connect the node, and generate.
 
 ## 🆚 TemplateFlow vs Other AI Workflow Tools
 
@@ -106,7 +106,7 @@ TemplateFlow focuses on clarity, speed, and reuse:
 
 - Node.js 22.0+
 
-- An AI provider API key
+- An Fal AI provider API key
 
 1. Clone the repository
    ```bash
