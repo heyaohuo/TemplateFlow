@@ -6,6 +6,7 @@
   </picture>
 </p>
 
+<p align="center"> <img src="https://img.shields.io/github/license/heyaohuo/TemplateFlow?style=flat-square" alt="license" /> <img src="https://img.shields.io/github/stars/heyaohuo/TemplateFlow?style=flat-square" alt="stars" /> <img src="https://img.shields.io/badge/Node.js-22.0+-green?style=flat-square" alt="node version" /> </p>
 
 <!-- **TemplateFlow** 内置了丰富的模版节点，无需从零开始构建，只需选择合适的模版节点，即可快速搭建复杂的工作流。 -->
 
@@ -16,49 +17,30 @@
 
 我们深知学习新工具的痛苦，因此 TemplateFlow 围绕三个核心理念构建
 
-**1. 📂 真正的零门槛：像搭乐高一样简单** 
+- **📂 真正的零门槛：模块化思维**： 内置深度预设的功能模板，不再需要从零研究参数。拖出节点，连接逻辑，剩下的交给 TemplateFlow。
 
-- **模版节点**：内置预设好的功能模版，拖出即用。
+- **自由分享：创意即文件**： 内置完整的导入导出功能。支持一键导出轻量化 JSON 文件，或加载社区大神分享的方案，瞬间拥有同款 AI 生产力。
 
-- **操作简单**：不需要懂编程逻辑，只需连接节点，剩下的交给TemplateFlow。
-
-**2. 🌍 自由分享：内置了完整的导入导出功能** 
-
-- **一键导出**：将你的创意保存为轻量化文件。
-
-- **快速导入**：直接加载大神分享的文件，瞬间拥有同款能力。
-
-- **社区联动**：支持分享到社区，与全球开发者交换你的工作流。
-
-**3. 🛡️ 100%开源：完全免费，代码全公开**
-
-- **完全免费**：没有隐藏收费，没有功能限制，所有核心能力均对全体用户开放。
-
-- **社区驱动**：这是一个属于所有人的工具，你的建议就是我们进化的动力。
+- **3🛡️ 100%开源：由社区驱动**：核心功能完全免费且开源。没有隐藏收费，没有功能限制，我们相信社区的力量能让工具更进化。
 
 <!-- 十个以内的核心功能 -->
 
 ## ✨ 核心功能 (Features)
 
-**🤖 多模型支持 (Multiple Models)**
+- 🔒&nbsp;本地部署保护隐私安全 (Security)
+- 🤖&nbsp;多模型支持 (Multiple Models)
+- 🖱️&nbsp;极简拖拽交互 (Drag-and-Drop UX)
+- ♾️&nbsp;无限画布 (Infinite Canvas)
+- 🔍&nbsp;自由缩放与平移 (Zoom & Pan)
+- ⌨️&nbsp;快捷键操作 (Keyboard Shortcuts)
+- 📤&nbsp;多模式文件上传 (Easy Upload)
+- ⏪&nbsp;支持撤销/重做 (Undo / Redo)
+- ⚡&nbsp;轻量化高性能引擎 (High-Performance Engine)
+- 💻&nbsp;支持二次开发 (Extensible Design)
 
-**🖱️ 极简拖拽交互 (Drag-and-Drop UX)**
+> 🚀 30 秒上手，零代码构建 AI 工作流
 
-**♾️ 无限画布 (Infinite Canvas)**
 
-**🔍 自由缩放与平移 (Zoom & Pan)**
-
-**⌨️ 快捷键操作 (Keyboard Shortcuts)**
-
-**📤 多模式文件上传 (Easy Upload)**
-
-**⏪ 支持撤销/重做 (Undo / Redo)**
-
-**⚡ 轻量化高性能引擎 (High-Performance Engine)**
-
-**💻 支持二次开发 (Extensible Design)**
-
-**📐 自由比例定制 (Aspect Ratio Control)**
 
 <!-- **🤖 多模型支持 (Multiple Models)**：自由切换不同底层模型，用于图像生成、视频创作及多模态工作流。
 
@@ -82,32 +64,21 @@
 
 
 <!-- 示例gif -->
-## How it works (short)
 
-<p align="center">
-  <picture>
-    <img alt="How it works" src="how_it_works.png" />
-  </picture>
-</p>
+## 📖 运行原理 (Quick Concept)
 
+TemplateFlow 的核心在于将复杂的 AI 参数封装为语义化模板：
 
+[输入数据/图片] ➔ [AI 逻辑模板] ➔ [结果预览/输出]
 
+30 秒上手： 拖出一个“风格转换模板”，连入你的图片，点击运行——就是这么简单。
 
 
-以下是一个简单的工作流示例：
-
-```plaintext
-[输入数据] → [数据处理模版] → [输出结果]
-```
-
-通过简单的拖拽和连接，您可以快速完成类似的工作流设计。
-
-> 🚀 30 秒上手，零代码构建 AI 工作流
 
 
 ## 🛠️ 如何运行 (Quick Start)
 
-**Note:** 在开始之前，请确保你的系统已安装Nodejs 22.0+。
+**Note:** 在开始之前，请确保你的系统已安装Nodejs 22.0+，获得API Key。
 
 1. 克隆项目：
    ```bash
@@ -122,14 +93,14 @@
 
 3. 配置环境变量，.env 文件，填入你的 API 密钥
 
-  ```bash
-  # API Keys
-  FAL_KEY=YOUR_FAL_API_KEY_
+      ```bash
+      # API Keys
+      FAL_KEY=YOUR_FAL_API_KEY_
 
-  # Cloudflare R2 Worker Configuration
-  NEXT_PUBLIC_WORKER_UPLOAD_URL=你的_Cloudflare_Worker_File_Upload_URL
-  NEXT_PUBLIC_R2_PUBLIC_URL=你的_Cloudflare_R2_密钥
-   ```
+      # Cloudflare R2 Worker Configuration
+      NEXT_PUBLIC_WORKER_UPLOAD_URL=你的_Cloudflare_Worker_File_Upload_URL
+      NEXT_PUBLIC_R2_PUBLIC_URL=你的_Cloudflare_R2_密钥
+      ```
 
 
 4. 启动开发服务器：
@@ -145,6 +116,9 @@
 
 [ ] 支持更多视频生成模型 (如 Luma / Runway)。
 
+[ ] 社区模版库: 直接在应用内浏览并下载云端模版。
+
+[ ] 局部重绘: 增加 Canvas 编辑器内直接涂抹功能。
 
 ## 📢 加入创作者社区
 
