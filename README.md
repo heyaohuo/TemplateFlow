@@ -6,7 +6,7 @@
     <img alt="TemplateFLow Page" src="TemplateFlow.png" />
   </picture>
 </p>
-> 只需几分钟即可构建人工智能工作流程——无需费力处理提示、参数或脚本。
+
 
 <p align="center">
   <a href="./README_EN.md">English</a> | <b>简体中文</b>
