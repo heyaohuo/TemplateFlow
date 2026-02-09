@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode  } from 'react';
 import { 
   Workflow, 
   Zap, 
@@ -15,6 +15,20 @@ import {
   Globe,
   Youtube
 } from 'lucide-react';
+
+// --- Types ---
+interface FeatureCardProps {
+  icon: ReactNode;
+  title: string;
+  desc: string;
+}
+
+interface SocialLinkProps {
+  href: string;
+  name: string;
+  icon: ReactNode;
+  color: string;
+}
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -357,7 +371,7 @@ export default function App() {
   );
 }
 
-function FeatureCard({ icon, title, desc }) {
+function FeatureCard({ icon, title, desc }: FeatureCardProps) {
   return (
     <div className="p-8 rounded-2xl bg-[#121214] border border-white/5 hover:border-purple-500/30 transition-all duration-300 group hover:-translate-y-1 h-full">
       <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center mb-6 group-hover:bg-purple-500/10 transition-colors">
@@ -373,7 +387,7 @@ function FeatureCard({ icon, title, desc }) {
 
 
 
-function SocialLink({ href, name, icon, color }) {
+function SocialLink({ href, name, icon, color }: SocialLinkProps) {
   return (
     <a 
       href={href}
