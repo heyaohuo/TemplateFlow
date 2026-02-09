@@ -105,7 +105,7 @@ export const handlePrompt = async ({
   }
 
   // 真正调用 handle_node 获取结果
-  // const result = await handle_node();
+  const result = await handle_node();
 
 
 /*  //  🔹 文生图

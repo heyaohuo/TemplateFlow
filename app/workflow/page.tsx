@@ -25,8 +25,8 @@ const App: React.FC = () => {
   const initialNodes: WorkflowNode[] = [
     { 
       id: 'fetch_user', 
-      x: 100, 
-      y: 150, 
+      x: 300, 
+      y: 250, 
       label: testprompts?.[0]?.title || "User", 
       type: 'Subject', 
       color: 'bg-blue-100 text-blue-600', 

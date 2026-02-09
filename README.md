@@ -6,7 +6,13 @@
   </picture>
 </p>
 
-<p align="center"> <img src="https://img.shields.io/github/license/heyaohuo/TemplateFlow?style=flat-square" alt="license" /> <img src="https://img.shields.io/badge/Node.js-22.0+-green?style=flat-square" alt="node version" /> </p>
+<p align="center"> 
+<img src="https://img.shields.io/github/license/heyaohuo/TemplateFlow?style=flat-square" alt="license" /> 
+<a href="https://discord.gg/uxpfAXTB">
+    <img src="https://img.shields.io/badge/Discord-Join%20Us-7289da?style=flat-square&logo=discord&logoColor=white" alt="Discord" />
+  </a>
+<img src="https://img.shields.io/badge/Node.js-22.0+-green?style=flat-square" alt="node version" /> 
+</p>
 
 <!-- **TemplateFlow** 内置了丰富的模版节点，无需从零开始构建，只需选择合适的模版节点，即可快速搭建复杂的工作流。 -->
 

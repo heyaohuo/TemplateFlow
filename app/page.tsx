@@ -60,12 +60,12 @@ export default function App() {
             </a>
           </div>
 
-          <button 
-            onClick={navigateToWorkflow}
+          <a 
+            href='https://discord.gg/uxpfAXTB' target="_blank" rel="noreferrer"
             className="px-5 py-2 text-sm font-medium bg-white text-black rounded-full hover:bg-gray-200 transition-colors"
           >
             加入Discord
-          </button>
+          </a>
         </div>
       </nav>
 
@@ -265,38 +265,38 @@ export default function App() {
           
           <div className="flex flex-wrap justify-center gap-6">
             <SocialLink 
-              href="https://twitter.com" 
+              href="https://x.com/developer_yan?s=21" 
               name="Twitter / X" 
               icon={<TwitterIcon />} 
               color="hover:bg-black hover:border-gray-700"
             />
             <SocialLink 
-              href="https://reddit.com" 
+              href="https://www.reddit.com/user/Left_Look6157/" 
               name="Reddit" 
               icon={<RedditIcon />} 
               color="hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-white"
             />
             <SocialLink 
-              href="https://youtube.com" 
+              href="https://www.youtube.com/@developer_xiaoyan" 
               name="YouTube" 
               icon={<Youtube size={30} />} 
               color="hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white"
             />
             <SocialLink 
-              href="https://bilibili.com" 
+              href="https://space.bilibili.com/3537107142314572" 
               name="Bilibili" 
               icon={<BilibiliIcon />} 
               color="hover:bg-[#00AEEC] hover:border-[#00AEEC] hover:text-white"
             />
             {/* Douyin - Redrawn SVG with glitch effect feel */}
             <SocialLink 
-              href="#" 
+              href="https://store.coinminer.one/tiktok_profile.png" 
               name="抖音" 
               icon={<DouyinIcon />} 
               color="hover:bg-black hover:border-gray-700 hover:text-white"
             />
              <SocialLink 
-              href="https://xiaohongshu.com" 
+              href="https://www.xiaohongshu.com/user/profile/684a82f9000000001d015b40?xsec_token=YBow3gxxk9fl5IvM8a4kZyGicKVjJUdEZiLqDi9ufIKpY=&xsec_source=app_share&xhsshare=CopyLink&appuid=684a82f9000000001d015b40&apptime=1770615290&&share_id=b47840c907f94da5961ba2471552c4c4" 
               name="小红书" 
               icon={<XiaohongshuIcon />} 
               color="hover:bg-[#FF2442] hover:border-[#FF2442] hover:text-white"
