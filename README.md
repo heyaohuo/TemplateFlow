@@ -38,7 +38,7 @@ TemplateFlow focuses on clarity, speed, and reuse:
 
 - ❌ No parameter deep-dives
 
-- ❌ No scripting required
+- ❌ No prompts required
 
 - ✅ Just pick a template, connect the node, and generate.
 
