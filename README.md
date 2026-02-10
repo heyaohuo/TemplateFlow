@@ -3,7 +3,7 @@
 
 <p align="center">
   <picture>
-    <img alt="TemplateFLow Page" src="TemplateFlow.png" />
+    <img alt="TemplateFLow Page" src="PR_TemplateFlow.gif" />
   </picture>
 </p>
 
