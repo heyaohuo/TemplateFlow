@@ -13,7 +13,8 @@ import {
   Shield, // 新增 Shield 图标
   Github,  // 新增 Github 图标 (虽然 lucide-react 可能没有 Github，用 Code 代替或检查可用性，这里使用 Github 可能会报错如果库版本不对，稳妥起见用 Code 或 GitBranch，但 Lucide 通常有 Github。为了保险，我将使用 Code 代表开源，或者 Shield)
   Globe,
-  Youtube
+  Youtube,
+  Languages
 } from 'lucide-react';
 
 // --- Types ---
@@ -30,8 +31,85 @@ interface SocialLinkProps {
   color: string;
 }
 
+
+// --- Types & Interfaces ---
+type Language = 'zh' | 'en';
+
+// --- Translations Dictionary ---
+const translations = {
+  zh: {
+    navFeatures: "核心特性",
+    navGithub: "GitHub",
+    navDiscord: "加入Discord",
+    heroBadge: "100% 开源的可视化生成引擎",
+    heroTitle: "最简单的 AI 内容创作工具",
+    heroDesc: "面向创作者与开发者的开源可视化 AI 编辑器。内置丰富的模版节点，快速构建复杂的图像生成流程。完全免费，代码透明，社区驱动。",
+    btnStart: "立即开始",
+    btnSource: "查看源码",
+    featureSectionTitle: "为什么选择 TemplateFlow？",
+    featureSectionSub: "回归创造的本质，简单、自由、开放",
+    f1Title: "真正的零门槛",
+    f1Desc: "告别繁琐的参数配置。像搭乐高一样，通过拖拽直观的节点即可完成工作流构建，新手也能秒变专家。",
+    f2Title: "自由分享",
+    f2Desc: "打破孤岛。内置完整的导入导出功能，轻松将你的创意工作流分享给社区，或一键加载他人的智慧结晶。",
+    f3Title: "100% 开源",
+    f3Desc: "小严相信开放的力量。项目代码完全公开，没有任何隐藏收费或私有协议，安全、透明、永久免费。",
+    highlightTitle: "不仅是工具，更是你的",
+    highlightDesc: "TemplateFlow 致力于降低 AI 生成门槛。兼容主流 Nano Banana Pro、Flux 2 Pro 及 Seedance Pro，Veo 3 等模型。无论你是想要生成精美的插画，还是构建自动化的电商图处理流水线，这里都是最佳的免费起点。",
+    highlightL1: "无需订阅，无隐藏费用",
+    highlightL2: "支持社区插件扩展",
+    highlightL3: "代码完全开源，安全可控",
+    hCard1: "极速响应",
+    hCard2: "模版丰富",
+    hCard3: "本地运行",
+    hCard4: "逻辑灵活",
+    communityBadge: "加入社区",
+    communityTitle: "关注小严，获取最新动态",
+    communityDesc: "小严活跃在各大社交平台。关注 TemplateFlow 官方账号，第一时间获取教程、新模版发布通知以及社区精选作品。",
+    ctaTitle: "加入开源社区，共建未来",
+    ctaDesc: "立即体验 TemplateFlow，无需注册，无需付费。",
+    footerCopy: "© 2026 TemplateFlow 开源项目。"
+  },
+  en: {
+    navFeatures: "Features",
+    navGithub: "GitHub",
+    navDiscord: "Join Discord",
+    heroBadge: "100% Open Source Visual Engine",
+    heroTitle: "The simplest tool for AI content creation",
+    heroDesc: "An open-source visual AI editor for creators and developers. Built-in rich template nodes to quickly build complex image generation workflows. Completely free, transparent code, community driven.",
+    btnStart: "Get Started",
+    btnSource: "Source Code",
+    featureSectionTitle: "Why Choose TemplateFlow?",
+    featureSectionSub: "Return to the essence of creation: simple, free, and open.",
+    f1Title: "Zero Threshold",
+    f1Desc: "Say goodbye to tedious configurations. Build workflows intuitively like playing with LEGO. Beginners can become experts in seconds.",
+    f2Title: "Free Sharing",
+    f2Desc: "Break the silos. Built-in import/export features make it easy to share your workflows or one-click load community wisdom.",
+    f3Title: "100% Open Source",
+    f3Desc: "We believe in the power of openness. The project is fully public with no hidden fees or proprietary protocols. Secure and free forever.",
+    highlightTitle: "Not just a tool, but your",
+    highlightDesc: "TemplateFlow is dedicated to lowering the barrier for AI generation. Compatible with Nano Banana Pro, Flux 2 Pro, Seedance Pro, and Veo 3. Whether creating illustrations or automated e-commerce pipelines, this is your best starting point.",
+    highlightL1: "No subscriptions, no hidden fees",
+    highlightL2: "Supports community plugin extensions",
+    highlightL3: "Fully open source, secure and controllable",
+    hCard1: "Fast Response",
+    hCard2: "Rich Templates",
+    hCard3: "Local Running",
+    hCard4: "Flexible Logic",
+    communityBadge: "Join the Community",
+    communityTitle: "Follow Yan for latest updates",
+    communityDesc: "Yan is active on major social platforms. Follow TemplateFlow for tutorials, new template announcements, and community highlights.",
+    ctaTitle: "Join the Community, Build the Future",
+    ctaDesc: "Experience TemplateFlow now. No registration, no payment required.",
+    footerCopy: "© 2026 TemplateFlow Open Source Project."
+  }
+};
+
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
+  const [lang, setLang] = useState<Language>('en');
+
+  const t = translations[lang];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +121,10 @@ export default function App() {
 
   const navigateToWorkflow = () => {
     window.location.href = '/workflow';
+  };
+
+  const toggleLanguage = () => {
+    setLang(prev => prev === 'zh' ? 'en' : 'zh');
   };
 
   return (
@@ -67,19 +149,32 @@ export default function App() {
             <span className="text-xl font-bold tracking-tight">TemplateFlow</span>
           </div>
           
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
-            <a href="#features" className="hover:text-white transition-colors">核心特性</a>
-            <a href="https://github.com/heyaohuo/TemplateFlow" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
-              GitHub <ChevronRight size={14} />
+          <div className="flex items-center gap-3 md:gap-8">
+            {/* Desktop Navigation Links */}
+            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+              <a href="#features" className="hover:text-white transition-colors">Features</a>
+              <a href="https://github.com/heyaohuo/TemplateFlow" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+                {t.navGithub} <ChevronRight size={14} />
+              </a>
+            </div>
+
+            {/* Language Switcher - Now visible on all devices */}
+            <button 
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors text-xs font-medium"
+            >
+              <Languages size={14} className="text-purple-400" />
+              <span>{lang === 'zh' ? 'EN' : '中文'}</span>
+            </button>
+
+            {/* Discord Button - Desktop only or adjusted for mobile */}
+            <a 
+              href='https://discord.gg/uxpfAXTB' target="_blank" rel="noreferrer"
+              className="hidden sm:block px-5 py-2 text-sm font-medium bg-white text-black rounded-full hover:bg-gray-200 transition-colors"
+            >
+              {t.navDiscord}
             </a>
           </div>
-
-          <a 
-            href='https://discord.gg/uxpfAXTB' target="_blank" rel="noreferrer"
-            className="px-5 py-2 text-sm font-medium bg-white text-black rounded-full hover:bg-gray-200 transition-colors"
-          >
-            加入Discord
-          </a>
         </div>
       </nav>
 
@@ -88,17 +183,15 @@ export default function App() {
         <div className="max-w-7xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-purple-300 mb-8 animate-fade-in-up">
             <Sparkles size={12} />
-            <span>100% 开源的可视化生成引擎</span>
+            <span>{t.heroBadge}</span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
-            The simplest tool for<br />AI content creation
+            Build AI workflows, not prompts.
           </h1>
           
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            面向创作者与开发者的开源可视化 AI编辑器。
-            内置丰富的模版节点，快速构建复杂的图像生成流程。
-            完全免费，代码透明，社区驱动。
+             {t.heroDesc}
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
@@ -107,13 +200,13 @@ export default function App() {
               className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all hover:scale-105 active:scale-95"
             >
               <span className="flex items-center gap-2">
-                立即开始
+                {t.btnStart}
                 <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </span>
             </button>
             <a href="https://github.com/heyaohuo/TemplateFlow" target="_blank" rel="noreferrer" className="px-8 py-4 rounded-full font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-colors border border-white/10 flex items-center gap-2">
               <Code size={18} />
-              查看源码
+              {t.btnSource}
             </a>
           </div>
 
@@ -191,25 +284,25 @@ export default function App() {
       <section id="features" className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">为什么选择 TemplateFlow？</h2>
-            <p className="text-gray-400">回归创造的本质，简单、自由、开放</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.featureSectionTitle}</h2>
+            <p className="text-gray-400">{t.featureSectionSub}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <FeatureCard 
               icon={<Layers className="text-purple-400" />}
-              title="真正的零门槛"
-              desc="告别繁琐的参数配置。像搭乐高一样，通过拖拽直观的节点即可完成工作流构建，新手也能秒变专家。"
+              title={t.f1Title}
+              desc={t.f1Desc}
             />
             <FeatureCard 
               icon={<Share2 className="text-blue-400" />}
-              title="自由分享"
-              desc="打破孤岛。内置完整的导入导出功能，轻松将你的创意工作流分享给社区，或一键加载他人的智慧结晶。"
+              title={t.f2Title}
+              desc={t.f2Desc}
             />
             <FeatureCard 
               icon={<Shield className="text-green-400" />}
-              title="100% 开源"
-              desc="小严相信开放的力量。项目代码完全公开，没有任何隐藏收费或私有协议，安全、透明、永久免费。"
+              title={t.f3Title}
+              desc={t.f3Desc}
             />
           </div>
         </div>
@@ -222,42 +315,45 @@ export default function App() {
              <div className="grid grid-cols-2 gap-4">
                 <div className="bg-[#1a1a1c] p-6 rounded-2xl border border-white/5 h-40 flex flex-col justify-end group hover:border-purple-500/50 transition-colors">
                    <Zap className="mb-auto text-yellow-400" />
-                   <span className="font-bold">极速响应</span>
+                   <span className="font-bold">{t.hCard1}</span>
                 </div>
                 <div className="bg-[#1a1a1c] p-6 rounded-2xl border border-white/5 h-40 flex flex-col justify-end group hover:border-blue-500/50 transition-colors translate-y-8">
                    <Box className="mb-auto text-blue-400" />
-                   <span className="font-bold">模版丰富</span>
+                   <span className="font-bold">{t.hCard2}</span>
                 </div>
                 <div className="bg-[#1a1a1c] p-6 rounded-2xl border border-white/5 h-40 flex flex-col justify-end group hover:border-green-500/50 transition-colors">
                    <Cpu className="mb-auto text-green-400" />
-                   <span className="font-bold">本地运行</span>
+                   <span className="font-bold">{t.hCard3}</span>
                 </div>
                 <div className="bg-[#1a1a1c] p-6 rounded-2xl border border-white/5 h-40 flex flex-col justify-end group hover:border-pink-500/50 transition-colors translate-y-8">
                    <Workflow className="mb-auto text-pink-400" />
-                   <span className="font-bold">逻辑灵活</span>
+                   <span className="font-bold">{t.hCard4}</span>
                 </div>
              </div>
           </div>
           <div className="order-1 md:order-2">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-              不仅是工具，<br/>更是你的<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">开放创意平台</span>
+              {t.highlightTitle}<br />
+              {/* {t.highlightTitle.split(',')[0]} <br/>{t.highlightTitle.split(',')[1] || ""} */}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                {lang === 'zh' ? '开放创意平台' : ' Creative Platform'}
+              </span>
             </h2>
             <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-              TemplateFlow 致力于降低 AI 生成门槛。兼容主流 Nano Banana Pro、Flux 2 Pro 及Seedance Pro， Veo 3等模型。
-              无论你是想要生成精美的插画，还是构建自动化的电商图处理流水线，这里都是最佳的免费起点。
+              {t.highlightDesc}
             </p>
             <ul className="space-y-4 text-gray-300">
               <li className="flex items-center gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-purple-500"></div>
-                无需订阅，无隐藏费用
+                {t.highlightL1}
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                支持社区插件扩展
+                {t.highlightL2}
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-                代码完全开源，安全可控
+                {t.highlightL3}
               </li>
             </ul>
           </div>
@@ -329,10 +425,8 @@ export default function App() {
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-purple-900/20 pointer-events-none"></div>
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h2 className="text-4xl font-bold mb-6">加入开源社区，共建未来</h2>
-          <p className="text-gray-400 mb-10 max-w-xl mx-auto">
-            立即体验 TemplateFlow，无需注册，无需付费。
-          </p>
+        <h2 className="text-4xl font-bold mb-6">{t.ctaTitle}</h2>
+        <p className="text-gray-400 mb-10 max-w-xl mx-auto">{t.ctaDesc}</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a 
               href="https://discord.gg/uxpfAXTB" 
@@ -340,7 +434,7 @@ export default function App() {
               rel="noreferrer"
               className="px-10 py-5 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
             >
-              加入Discord
+              {t.navDiscord}
             </a>
             <a 
               href="https://github.com/heyaohuo/TemplateFlow" 

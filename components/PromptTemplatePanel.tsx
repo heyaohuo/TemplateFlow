@@ -53,7 +53,7 @@ export const PromptTemplatePanel: React.FC<PromptTemplatePanelProps> = ({
             <div className="w-8 h-8 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
               <Sparkles size={16} className="text-white" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 tracking-tight">模版库 {allPrompts.length}</h3>
+            <h3 className="text-xl font-bold text-slate-900 tracking-tight">Libray {allPrompts.length}</h3>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full transition-all active:scale-90">
             <X size={20} className="text-slate-400" />

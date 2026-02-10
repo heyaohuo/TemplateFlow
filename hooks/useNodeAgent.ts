@@ -1,6 +1,26 @@
 
 import { AllModelIds, getRatioValue } from "@/lib/types/ratioType";
 
+type Sleep = (ms: number) => Promise<void>
+
+const sleep: Sleep = (ms) =>
+  new Promise((resolve) => setTimeout(resolve, ms))
+
+const mockImageResult = (tag: string): { type: 'image'; url: string } => {
+  console.log(`✅ mock ${tag} success`)
+  return {
+    type: 'image',
+    url: 'https://store.coinminer.one/PR_image.jpeg',
+  }
+}
+
+const mockVideoResult = (tag: string): { type: 'video'; url: string } => {
+  console.log(`🎬 mock ${tag} success`)
+  return {
+    type: 'video',
+    url: 'https://store.coinminer.one/PR_video.mp4',
+  }
+}
 
 export const handlePrompt = async ({
   id,
@@ -106,6 +126,17 @@ export const handlePrompt = async ({
 
   // 真正调用 handle_node 获取结果
   const result = await handle_node();
+
+/*   if(mode === 'text' || base64Images?.length === 0 || !base64Images) {
+    await sleep(2000)
+    return mockImageResult('text-to-image')
+  } else if(mode === "image" && base64Images && base64Images.length > 0) {
+    await sleep(2000)
+    return mockImageResult('image-to-image')
+  } else if(mode === "video" && base64Images && base64Images.length > 0) {
+    await sleep(3000)
+    return mockVideoResult('image-to-video')
+  } */
 
 
 /*  //  🔹 文生图

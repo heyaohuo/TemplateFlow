@@ -20,12 +20,13 @@ import { Sidebar } from '@/components/Siderbar';
 import Header from '@/components/header';
 import WorkspaceBottom from '@/components/WorkspaceBottom';
 import { useHistory } from '@/hooks/useHistory';
+import { isVideoUrl } from '@/utils/urlType';
 
 const App: React.FC = () => {
   const initialNodes: WorkflowNode[] = [
     { 
       id: 'fetch_user', 
-      x: 300, 
+      x: 500, 
       y: 250, 
       label: testprompts?.[0]?.title || "User", 
       type: 'Subject', 
@@ -270,14 +271,17 @@ useEffect(() => {
   // 2. 处理模板选择逻辑
   const handleTemplateSelect = (template: any) => {
     // 计算新节点的位置（例如放在屏幕中心或者上一个节点旁边）
-    const newX = 100; 
-    const newY = 100;
+    // 闭包捕获当前所需位置
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const pos = screenToCanvas(centerX, centerY);
+
 
     const newNode: WorkflowNode = {
       id: `subject_${Date.now()}`,
       type: 'Subject', // 创建一个 Subject 类型的节点
-      x: newX,
-      y: newY,
+      x: pos.x - 120,
+      y: pos.y - 120,
       label: template.title,
       prompt: template.prompt, // 将模板提示词注入节点
       imageUrl: template.prompt_img, // 将模板图片设为初始图
@@ -1028,10 +1032,29 @@ const importWorkflow = (event: React.ChangeEvent<HTMLInputElement>) => {
 
       {/* 全屏预览 */}
       {previewImage && (
-        <div className="fixed inset-0 z-[100] bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-8" onClick={() => setPreviewImage(null)}>
-          <img src={previewImage} className="max-w-full max-h-full rounded-xl shadow-2xl object-contain" alt="full preview" />
-        </div>
-      )}
+  <div
+    className="fixed inset-0 z-[100] bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-8"
+    onClick={() => setPreviewImage(null)}
+  >
+    {isVideoUrl(previewImage) ? (
+      <video
+        src={previewImage}
+        controls
+        autoPlay
+        onClick={(e) => e.stopPropagation()}
+        className="max-w-full max-h-full rounded-xl shadow-2xl object-contain bg-black"
+      />
+    ) : (
+      <img
+        src={previewImage}
+        className="max-w-full max-h-full rounded-xl shadow-2xl object-contain"
+        alt="full preview"
+        onClick={(e) => e.stopPropagation()}
+      />
+    )}
+  </div>
+)}
+
     </div>
   );
 };

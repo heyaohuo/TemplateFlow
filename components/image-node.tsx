@@ -3,6 +3,7 @@
 import React from 'react';
 import { ImageIcon, UploadCloud, Maximize2, Download } from 'lucide-react'; // 引入 Maximize2 图标
 import { WorkflowNode } from '@/lib/types/nodeType';
+import { isVideoUrl } from '@/utils/urlType';
 
 interface ImageNodeProps {
   node: WorkflowNode;
@@ -13,6 +14,7 @@ interface ImageNodeProps {
   onMouseDown?: (e: React.MouseEvent) => void;
   onPreview: (url: string) => void;
 }
+
 
 
 export default function ImageNode({ 
@@ -27,6 +29,9 @@ export default function ImageNode({
   
   const isDragging = draggingNodeId === node.id;
   const isSnapTarget = snapTargetId === node.id;
+
+  const isVideo = node.imageUrl ? isVideoUrl(node.imageUrl) : false;
+
 
   const handleDownload = (
     e: React.MouseEvent,
@@ -64,7 +69,7 @@ export default function ImageNode({
           <button
             onMouseDown={(e) => e.stopPropagation()}
             onClick={(e) =>
-              handleDownload(e, node.imageUrl!, `${node.id}.png`)
+              handleDownload(e, node.imageUrl!, `${node.id}.${isVideo ? 'mp4' : 'png'}`)
             }
             className="
               ml-1 p-1 rounded-md
@@ -85,33 +90,53 @@ export default function ImageNode({
 
       {/* --- 图片主体 --- */}
       <div className="p-0 w-full">
-        {node.imageUrl ? (
-          <div className="relative group rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
-            <img 
-              src={node.imageUrl} 
-              alt="Generated" 
-              onDragStart={(e) => e.preventDefault()}
-              className="w-full h-auto block min-h-[100px] max-h-[400px] object-cover" 
-            />
-            
-            {/* ✨ 右上角放大图标按钮 */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation(); // 阻止冒泡，防止触发节点的拖拽或画布点击
-                onPreview(node.imageUrl!);
-              }}
-              className="absolute top-2 right-2 p-2 bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-lg text-white opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg transform translate-y-2 group-hover:translate-y-0"
-              title="全屏预览"
-            >
-              <Maximize2 size={16} />
-            </button>
-          </div>
-        ) : (
-          <div className="aspect-square rounded-xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-3 bg-slate-50/50">
-             <UploadCloud size={24} className="text-slate-300" />
-             <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Waiting</span>
-          </div>
-        )}
+
+{node.imageUrl ? (
+  <div className="relative group rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+
+    {isVideo ? (
+      <video
+        src={node.imageUrl}
+        playsInline
+        muted
+        loop
+        controls
+        preload="metadata"
+        onDragStart={(e) => e.preventDefault()}
+        className="w-full h-auto block min-h-[100px] max-h-[400px] object-cover"
+      />
+    ) : (
+      <img
+        src={node.imageUrl}
+        alt="Generated"
+        onDragStart={(e) => e.preventDefault()}
+        className="w-full h-auto block min-h-[100px] max-h-[400px] object-cover"
+      />
+    )}
+
+    {/* 右上角预览按钮（视频 / 图片共用） */}
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        onPreview(node.imageUrl!);
+      }}
+      className="absolute top-2 right-2 p-2 bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-lg text-white opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg transform translate-y-2 group-hover:translate-y-0"
+      title="全屏预览"
+    >
+      <Maximize2 size={16} />
+    </button>
+
+  </div>
+) : (
+  <div className="aspect-square rounded-xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-3 bg-slate-50/50">
+    <UploadCloud size={24} className="text-slate-300" />
+    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+      Waiting
+    </span>
+  </div>
+)}
+
+
       </div>
     </div>
   );
