@@ -99,13 +99,15 @@ TemplateFlow 强调简单、速度和可重用性：
 
 ## 🐳 Docker Compose (Recommended)
 
+本项目支持使用 Docker Compose 进行一键启动。
+
 **先决条件**
 
 - Docker ≥ 20
 
 - Docker Compose v2
 
-1️⃣ 准备好环境变量
+1️⃣ 配置环境变量
 
 在根目录下创建一个 .env 文件（如有 .env.example 文件，请参考该文件）
 
@@ -148,6 +150,7 @@ docker compose up -d
 
 
 ## 📢 加入SparkShort 创作者社区
+
 
 - 为什么要加入 Discord ？
 
