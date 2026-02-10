@@ -130,7 +130,7 @@ TemplateFlow 强调简单、速度和可重用性：
    npm install
    ```
 
-3. 配置环境变量，在.env.example 文件配置密钥，
+3. 在根目录下创建一个 .env 文件（如有 .env.example 文件，请参考该文件）。
 
 
 4. 启动开发服务器：

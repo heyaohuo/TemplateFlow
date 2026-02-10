@@ -119,7 +119,7 @@ TemplateFlow focuses on clarity, speed, and reuse:
    npm install
    ```
 
-3. Configure environment variables on .env.example
+3. Create a .env file in the root directory (refer to .env.example if available)
 
 
 
