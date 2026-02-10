@@ -119,17 +119,8 @@ TemplateFlow focuses on clarity, speed, and reuse:
    npm install
    ```
 
-3. Configure environment variables
+3. Configure environment variables on .env.example
 
-      ```bash
-        # API Keys
-        FAL_KEY=YOUR_FAL_API_KEY
-
-
-        # Cloudflare R2 Worker Configuration
-        NEXT_PUBLIC_WORKER_UPLOAD_URL=YOUR_WORKER_UPLOAD_URL
-        NEXT_PUBLIC_R2_PUBLIC_URL=YOUR_R2_PUBLIC_URL
-      ```
 
 
 4. Start the dev server

@@ -130,16 +130,7 @@ TemplateFlow 强调简单、速度和可重用性：
    npm install
    ```
 
-3. 配置环境变量，.env 文件，填入你的 API 密钥
-
-      ```bash
-      # API Keys
-      FAL_KEY=YOUR_FAL_API_KEY_
-
-      # Cloudflare R2 Worker Configuration
-      NEXT_PUBLIC_WORKER_UPLOAD_URL=你的_Cloudflare_Worker_File_Upload_URL
-      NEXT_PUBLIC_R2_PUBLIC_URL=你的_Cloudflare_R2_密钥
-      ```
+3. 配置环境变量，在.env.example 文件配置密钥，
 
 
 4. 启动开发服务器：
