@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  web:
+    image: my-next-app
+    container_name: my-next-app
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    env_file:
+      - .env

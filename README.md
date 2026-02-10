@@ -3,13 +3,14 @@
 
 <p align="center">
   <picture>
-    <img alt="TemplateFLow Demo" src="PR_TemplateFlow.gif" />
+    <img alt="TemplateFLow Page" src="TemplateFlow.png" />
   </picture>
 </p>
 
+> Build AI workflows in minutes — without fighting prompts, parameters, or scripts.
 
 <p align="center">
-  <a href="./README_EN.md">English</a> | <b>简体中文</b>
+  <b>English</b> | <a href="./README_CN.md">简体中文</a>
 </p>
 
 <p align="center"> 
@@ -20,142 +21,152 @@
 <img src="https://img.shields.io/badge/Node.js-22.0+-green?style=flat-square" alt="node version" /> 
 </p>
 
-<!-- **TemplateFlow** 内置了丰富的模版节点，无需从零开始构建，只需选择合适的模版节点，即可快速搭建复杂的工作流。 -->
 
-**TemplateFlow** 是一个让你 **不用写 Prompt、不用调参数**，就能快速搭建 AI 生成流程的可视化工作流工具。
+**TemplateFlow** is a visual AI workflow editor for creators and developers who want results fast.
 
-只需将预设的AI模板拖放到画布上，连接起来即可运行。
+Instead of tuning endless prompts or memorizing parameters, you drag ready-made AI templates onto a canvas, connect them, and run.
 
+From idea → workflow → output, in minutes.
 
-## 🤔 为什么选择 TemplateFlow？
+## 🤔 Why TemplateFlow?
 
-TemplateFlow 强调简单、速度和可重用性：
+Most AI workflow tools are powerful — but overwhelming.
 
-- ❌ 无需担心从零开始创作
+TemplateFlow focuses on clarity, speed, and reuse:
 
-- ❌ 无需深入研究参数设置
+- ❌ No blank canvas anxiety
 
-- ❌ 无需编写脚本
+- ❌ No parameter deep-dives
 
-- ✅ 只需选择模板，连接节点，即可生成。
+- ❌ No scripting required
 
-## 🆚 TemplateFlow 与其他 AI Workflow 工具对比
+- ✅ Just pick a template, connect the node, and generate.
 
-| 功能 | TemplateFlow | ComfyUI / 其他 |
+## 🆚 TemplateFlow vs Other AI Workflow Tools
+
+| Feature | TemplateFlow | ComfyUI / Others |
 |------|------|------|
-| 零配置模板 | ✅ 内置 | ❌ 大部分需要手动配置 |
-| 新手友好 | ✅ 拖放即可运行 | ❌ 学习曲线陡峭 |
-| 模板共享 | ✅ 基于 JSON | ⚠️ 功能有限 |
-| 开源 | ✅ 100% | ⚠️ 部分开源 |
-| 注重创作者体验 | ✅ | ❌ 开发者优先 |
+| Zero-setup templates | ✅ Built-in | ❌ Mostly manual |
+| Beginner friendly | ✅ Drag & run | ❌ Steep learning curve |
+| Template sharing | ✅ JSON-based | ⚠️ Limited |
+| Open source | ✅ 100% | ⚠️ Partial |
+| Creator-focused | ✅ | ❌ Developer-first |
 
+
+🎬 See It In Action
+
+
+> Build your first AI workflow in under 30 seconds.
 <!-- 十个以内的核心功能 -->
 
-## ✨ 核心功能 (Features)
+## ✨ Key Features
 
-- 🚀&nbsp;直接使用模板——无需配置任何参数。
+- 🚀 Zero-config AI templates — no parameter tuning
 
-- 🧩&nbsp;极简拖拽交互 (Drag-and-Drop UX)
+- 🧩 Drag-and-drop workflow builder
 
-- 📦&nbsp;以轻量级 JSON 文件格式导入和导出工作流程
+- 📦 Import & export workflows as lightweight JSON files
 
-- 🔒&nbsp;本地部署保护隐私安全 (Security)
+- 🔒 Local-first & privacy-friendly deployment
 
-- 🤖&nbsp;多模型支持 (Multiple Models)
+- 🤖 Multi-model support
 
-- ♾️&nbsp;无限画布 (Infinite Canvas)
+- ♾️ Infinite canvas with smooth zoom & pan
 
-- ⏪&nbsp;支持撤销/重做 (Undo / Redo)
+- ⏪ Undo / redo & keyboard shortcuts
 
-- 💻&nbsp;支持二次开发 (Extensible Design)
-
-> 🚀 30 秒上手，零代码构建 AI 工作流
+- 💻 Extensible architecture for developers
 
 
 
-<!-- **🤖 多模型支持 (Multiple Models)**：自由切换不同底层模型，用于图像生成、视频创作及多模态工作流。
-
-**🖱️ 极简拖拽交互 (Drag-and-Drop UX)**：像操作画板一样直观。所有节点均可通过拖拽连接，逻辑结构清晰可见。
-
-**♾️ 无限画布 (Infinite Canvas)**：不受空间限制，自由构建任意规模的复杂工作流。
-
-**🔍 自由缩放与平移 (Zoom & Pan)**：支持滚轮缩放、画布平移，并可一键定位当前工作区域。
-
-**⌨️ 快捷键操作 (Keyboard Shortcuts)**：覆盖常用操作的快捷键体系，大幅提升编辑效率。
-
-**📤 多模式文件上传 (Easy Upload)**：支持拖拽上传或手动选择文件，图片可直接拖入画布作为节点输入。
-
-**⏪ 支持撤销/重做 (Undo / Redo)**：完整的操作历史管理，让每一步修改都可控、可回退。
-
-**⚡ 轻量化高性能引擎 (High-Performance Engine)**：针对资源占用深度优化，即使在普通电脑上也能流畅运行大型工作流。
-
-**💻 深度支持二次开发 (Extensible Design)**：支持自定义节点与插件，方便二次开发与功能扩展。
-
-**📐 自由比例定制 (Aspect Ratio Control)**：内置常用比例与分辨率预设（如 1:1、16:9、9:16），满足不同创作场景。 -->
 
 
 <!-- 示例gif -->
 
 
-## 📢 加入SparkShort 创作者社区
 
-- 为什么要加入 Discord ？
 
-- 🚧 抢先体验新功能
 
-- 🧠 分享和获取工作流程模板
+## 🐳 Docker Compose (Recommended)
 
-- 🗳️ 参与路线图优先级投票
+This project supports one-command startup using Docker Compose.
 
-- 🛠️ 直接获得维护者的帮助
+**Prerequisites**
 
-👉 [加入 Discord](https://discord.gg/uxpfAXTB)
+- Docker ≥ 20
 
-## 🛠️ 如何运行 (Quick Start)
+- Docker Compose v2
 
-**先决条件：**
+1️⃣ Prepare environment variables
 
-- Node.js 22.0 或更高版本
+Create a .env file in the project root (refer to .env.example if available).
 
-- 一个 Fal AI provider的 API 密钥
+2️⃣ Start the app
 
-1. 克隆项目：
+```bash
+docker compose up -d
+```
+
+3️⃣ Open `http://localhost:3000`。
+
+## 🛠️ Quick Start
+
+**Prerequisites:**
+
+- Node.js 22.0+
+
+- An Fal AI provider API key
+
+1. Clone the repository
    ```bash
    git clone https://github.com/heyaohuo/TemplateFlow.git
    cd TemplateFlow
    ```
 
-2. 安装依赖：
+2. Install dependencies
    ```bash
    npm install
    ```
 
-3. 在根目录下创建一个 .env 文件（如有 .env.example 文件，请参考该文件）。
+3. Create a .env file in the root directory (refer to .env.example if available)
 
 
-4. 启动开发服务器：
+
+4. Start the dev server
    ```bash
    npm run dev
    ```
 
-5. 打开浏览器访问 `http://localhost:3000`。
+5. Open `http://localhost:3000`。
 
 
-## 🗺️ 路线图 (Roadmap)
 
-- 路线图的优先事项由社区反馈决定。
+## 📢 Join the TemplateFlow Community
+
+- Why join our Discord?
+
+- 🚧 Early access to new features
+
+- 🧠 Share & request workflow templates
+
+- 🗳️ Vote on roadmap priorities
+
+- 🛠️ Get help directly from the maintainer
+
+👉 [Join Discord](https://discord.gg/uxpfAXTB)
+
+## 🗺️ Roadmap
+
+- Roadmap priorities are driven by community feedback.
 
 
----
+## 👋 Maintained & Open
 
-## 👋 持续维护，开源可用
+TemplateFlow is actively developed and maintained.
 
-TemplateFlow 正在积极开发和维护中。
-
-如果您觉得这个项目有用，请考虑给它点个星 ⭐ —— 这将有助于项目的成长和持续发展。
+If you find this project useful, consider starring ⭐ the repo — it helps the project grow and stay sustainable.
 
 
-## 贡献
+## 🤝 Contributing
 
-欢迎贡献代码、提交问题或分享您的模版节点！请参考 [CONTRIBUTING.md](CONTRIBUTING.md) 获取更多信息。
-
+Contributions, issues, and template ideas are welcome!
