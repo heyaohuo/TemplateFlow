@@ -14,7 +14,7 @@
 </p>
 
 <p align="center"> 
-<img src="https://img.shields.io/github/license/heyaohuo/TemplateFlow?style=flat-square" alt="license" /> 
+<img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="license" /> 
 <a href="https://discord.gg/uxpfAXTB">
     <img src="https://img.shields.io/badge/Discord-Join%20Us-7289da?style=flat-square&logo=discord&logoColor=white" alt="Discord" />
   </a>
