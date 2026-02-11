@@ -1024,7 +1024,7 @@ const importWorkflow = (event: React.ChangeEvent<HTMLInputElement>) => {
             showPromptPanel={showPromptPanel}
             setShowPromptPanel={setShowPromptPanel}
             onUpload={() => fileInputRef.current?.click()}
-            onAddNode={(type: any,inputType: string) => addNodeAtPos(type, menuConfig.canvasX, menuConfig.canvasY, {}, menuConfig.fromNodeId, inputType)}
+            onAddNode={(type: NodeType,inputType: string) => addNodeAtPos(type, menuConfig.canvasX, menuConfig.canvasY, {}, menuConfig.fromNodeId, inputType)}
             onClose={() => setMenuConfig(null)}
             />
         )}

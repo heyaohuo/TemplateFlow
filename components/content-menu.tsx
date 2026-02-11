@@ -6,7 +6,7 @@ import { Video, Music, Sparkles, Upload, FileText, ImageIcon} from 'lucide-react
 interface ContextMenuProps {
     x: number;
     y: number;
-    onAddNode: (type: NodeType) => void;
+    onAddNode: (type: NodeType, inputType: string) => void;
     onUpload?: () => void;
     onClose: () => void;
     showPromptPanel: boolean;
