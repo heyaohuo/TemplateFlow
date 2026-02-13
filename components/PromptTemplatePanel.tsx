@@ -26,7 +26,7 @@ export const PromptTemplatePanel: React.FC<PromptTemplatePanelProps> = ({
   const [selectedTag, setSelectedTag] = useState('All');
 
   const tags = useMemo(() => {
-    const baseTags = ['All', 'Anime', 'Realistic', '3D', 'Art', 'Design'];
+    const baseTags = ['All', '小红书', 'Youtube', '抖音', 'Free Course', 'AI Tools'];
     return Array.from(new Set([...baseTags, ...allPrompts.map(p => p.tag).filter(Boolean)]));
   }, [allPrompts]);
 
@@ -104,7 +104,7 @@ export const PromptTemplatePanel: React.FC<PromptTemplatePanelProps> = ({
               {featuredPrompts.map(item => (
                 <div 
                   key={`feat-${item.id}`}
-                  onClick={() => onSelect(item)}
+                  onClick={() => onSelect?.(item)}
                   className="min-w-[160px] cursor-pointer group"
                 >
                   <div className="relative rounded-2xl overflow-hidden mb-2 shadow-sm group-hover:shadow-xl transition-all duration-300">
@@ -130,7 +130,7 @@ export const PromptTemplatePanel: React.FC<PromptTemplatePanelProps> = ({
           {filteredPrompts.map((item) => (
             <div 
               key={item.id}
-              onClick={() => onSelect(item)}
+              onClick={() => onSelect?.(item)}
               className="break-inside-avoid group cursor-pointer"
             >
               <div className="bg-slate-100 rounded-2xl overflow-hidden mb-2 relative shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100">

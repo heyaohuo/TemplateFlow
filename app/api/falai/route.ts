@@ -2,20 +2,25 @@
 import { NextResponse } from 'next/server';
 import { fal } from "@fal-ai/client";
 
-
-const WORKER_UPLOAD_URL = process.env.NEXT_PUBLIC_WORKER_UPLOAD_URL!
-const R2_PUBLIC_URL = process.env.NEXT_PUBLIC_R2_PUBLIC_URL!
-
 export async function POST(req: Request) {
 
   try {
 
+    // 1. 读取用户 key（从 header 或 body）
+    const userFalKey =
+      req.headers.get("x-user-fal-key") || undefined
+
+    // 2. 创建 fal client（关键）
+    fal.config({
+        credentials: userFalKey || process.env.FAL_API_KEY!
+      });
     // 获取前端发送的
     const {
         id,
         prompt,
         mode,
         model_id,
+        numImages,
         urls = [],
         aspectRatio,
         imageConfig
@@ -24,6 +29,7 @@ export async function POST(req: Request) {
         prompt: string
         model_id: string
         mode: 'text' | 'image' | 'video'
+        numImages: string
         urls?: string[]
         aspectRatio?:{}
         imageConfig: {
@@ -43,9 +49,11 @@ export async function POST(req: Request) {
       // 根据模式处理特定参数
     if (mode === 'image') {
       falInput.output_format = "png";
+      const nums = parseInt(numImages, 10);
+      falInput.num_images = nums && nums > 0 ? nums : 1; // 默认生成1张图
       // 如果是图生图，需要传入 image_url
       if (urls && urls.length > 0) {
-        falInput.image_url = urls[0]; 
+        falInput.image_urls = urls[0]; 
       }
     } else if (mode === 'video') {
       // 视频特定的配置 (根据模型不同，参数名可能不同，这里假设通用配置)
@@ -71,22 +79,32 @@ export async function POST(req: Request) {
       },
     });
 
-    // 4. 提取生成结果的 URL
-    let generatedUrl = "";
+    // 4. 提取生成结果的 URLs
+    let generatedUrls: string[] = [];
     
     if (result.data.images && result.data.images.length > 0) {
-      generatedUrl = result.data.images[0].url;
+      generatedUrls = result.data.images.map((img: any) => img.url);
     } else if (result.data.video) {
-      generatedUrl = result.data.video.url;
+      generatedUrls.push(result.data.video.url);
     } else if (result.data.file) {
       // 部分视频模型返回 file.url
-      generatedUrl = result.data.file.url; 
+      generatedUrls.push(result.data.file.url); 
     } else {
       throw new Error("Fal response format not recognized");
     }
 
-    console.log(`[Fal] Generated remote URL: ${generatedUrl}`);
+    console.log(`[Fal] Generated remote URLs: ${generatedUrls}`);
 
+
+    // 返回生成的 URLs 数组
+    // 如果 mode 是 'text' 或 'image'，统一返回 'image'
+    const returnType = (mode === 'video') ? 'video' : 'image';
+    const finalUrls = generatedUrls.map(url => ({ type: returnType, url }));
+    return NextResponse.json({
+      urls: finalUrls,
+    });
+
+    /*
     // 确定文件名和扩展名
     const raw_img_name = generatedUrl.split("/").pop(); 
     // 防止文件名中包含 query 参数
@@ -126,28 +144,7 @@ export async function POST(req: Request) {
       url: publicUrl,
     });
 
-      // 上传到R2中 并最终返回
-      // const result = await fal.subscribe(model_id, {
-      //   input: {
-      //     prompt: prompt,
-      //     ...aspectRatio,
-      //     safety_tolerance: "2",
-      //     enable_safety_checker: true,
-      //     output_format: "jpeg",
-      //     image_urls: ["https://storage.googleapis.com/falserverless/example_inputs/flux2_pro_edit_input.png"]
-      //     },
-      //   logs: true,
-      //   onQueueUpdate: (update) => {
-      //     if (update.status === "IN_PROGRESS") {
-      //       update.logs.map((log) => log.message).forEach(console.log);
-      //     }
-      //   },
-      // });
-
-
-      // const output_img_url = result.data.images[0]["url"]
-      // const raw_img_name = output_img_url.split("/")[-1];
-      // const filename = `${id}_${raw_img_name}.png`
+    */
       
   } catch (err:any) {
     console.error('Generation error', err)

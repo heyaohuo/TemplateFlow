@@ -16,6 +16,7 @@ import {
   Youtube,
   Languages
 } from 'lucide-react';
+import Link from 'next/link';
 
 // --- Types ---
 interface FeatureCardProps {
@@ -119,9 +120,6 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navigateToWorkflow = () => {
-    window.location.href = '/workflow';
-  };
 
   const toggleLanguage = () => {
     setLang(prev => prev === 'zh' ? 'en' : 'zh');
@@ -159,13 +157,13 @@ export default function App() {
             </div>
 
             {/* Language Switcher - Now visible on all devices */}
-            <button 
+            <div 
               onClick={toggleLanguage}
               className="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors text-xs font-medium"
             >
               <Languages size={14} className="text-purple-400" />
               <span>{lang === 'zh' ? 'EN' : '中文'}</span>
-            </button>
+            </div>
 
             {/* Discord Button - Desktop only or adjusted for mobile */}
             <a 
@@ -195,15 +193,15 @@ export default function App() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-            <button 
-              onClick={navigateToWorkflow}
+            <Link 
+              href={"/workflow"}
               className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all hover:scale-105 active:scale-95"
             >
               <span className="flex items-center gap-2">
                 {t.btnStart}
                 <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </span>
-            </button>
+            </Link>
             <a href="https://github.com/heyaohuo/TemplateFlow" target="_blank" rel="noreferrer" className="px-8 py-4 rounded-full font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-colors border border-white/10 flex items-center gap-2">
               <Code size={18} />
               {t.btnSource}

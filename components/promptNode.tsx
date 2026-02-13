@@ -6,6 +6,7 @@ import { handlePrompt } from '@/hooks/useNodeAgent'
 import { Video, ImageIcon, Clock, Loader2, Sparkles } from 'lucide-react'
 import { image_modles, video_modles } from '@/lib/types/modleType'
 import { AllModelIds } from '@/lib/types/ratioType'
+import { generateId } from '@/utils/idGenerate'
 
 // --- 类型定义 ---
 type AppMode = 'image' | 'video' | 'text'
@@ -27,10 +28,12 @@ interface InputNodeProps {
     x: number,
     y: number,
     data: any,
-    sourceNodeId: string
+    sourceNodeId: string,
+    selfId?: string
   ) => void
   startLinking: (e: React.MouseEvent, nodeId: string) => void
   onMouseDown?: (e: React.MouseEvent) => void
+  setShowKeyModal: (show: boolean) => void
 }
 
 // --- 通用下拉组件 ---
@@ -80,6 +83,7 @@ export default function PromptNode(props: InputNodeProps) {
     draggingNodeId,
     onAddNode,
     setNodes,
+    setShowKeyModal,
     nodes,
     connections,
     combinedImgUrls,
@@ -87,7 +91,7 @@ export default function PromptNode(props: InputNodeProps) {
     onMouseDown,
   } = props
 
-  const mode: AppMode = node.mode || 'image'
+  const mode: string = node.mode || 'image'
 
   // --- 动态配置 ---
   const config = useMemo(() => {
@@ -119,6 +123,8 @@ export default function PromptNode(props: InputNodeProps) {
   const [duration, setDuration] = useState<DurationType>('5s')
   const [isGenerating, setIsGenerating] = useState(false)
 
+  const [numImages, setNumImages] = useState("1");
+
   // --- 图片输入（仅 image / video） ---
   const activeImgUrls = useMemo(() => {
     if (mode === 'text') return []
@@ -136,6 +142,15 @@ export default function PromptNode(props: InputNodeProps) {
 
   const handleGenerate = async () => {
     if (!node.prompt || isGenerating) return
+    const falMode = localStorage.getItem("fal_mode") || "credits"
+    const falKey = localStorage.getItem("fal_api_key")
+    
+
+    if (falMode === "credits" || !falKey) {
+      // 没有 key → 弹窗
+      setShowKeyModal(true)
+      return
+    }
     setIsGenerating(true)
   
     try {
@@ -147,13 +162,14 @@ export default function PromptNode(props: InputNodeProps) {
   
       // 2️⃣ 所有“可变参数”统一放进 extra
       const extra = {
+        numImages,
         duration: mode === 'video' ? duration : undefined,
         resolution,
         ratio,
       }
   
       // 3️⃣ 调用 agent
-      const result = await handlePrompt({
+      const newUrls = await handlePrompt({
         id: node.id,
         prompt: node.prompt!,
         model: selectedModel,
@@ -163,17 +179,30 @@ export default function PromptNode(props: InputNodeProps) {
       })
   
       // 4️⃣ 根据返回类型创建不同节点
-      if (result) {
-        onAddNode(
-          'IMAGE',
-          node.x + 400,
-          node.y,
-          {
-            imageUrl: result.url,
-            label: `Result (${selectedModel})`,
-          },
-          node.id
-        )
+      if (Array.isArray(newUrls) && newUrls.length > 0) {
+        const gapX = 260  // 横向间距
+const gapY = 220  // 纵向间距
+const rows = 2
+const total = newUrls.length
+const cols = Math.ceil(total / rows)
+
+newUrls.forEach((item, index) => {
+  const row = index % rows       // 0 | 1
+  const col = Math.floor(index / rows)
+
+  onAddNode(
+    'IMAGE',
+    node.x + 500 + col * gapX,
+    node.y + row * gapY,
+    {
+      imageUrl: item.url,
+      label: `Result ${index + 1} (${selectedModel})`,
+    },
+    node.id,
+    generateId()
+  )
+})
+
       }
     } finally {
       setIsGenerating(false)
@@ -293,6 +322,16 @@ export default function PromptNode(props: InputNodeProps) {
               { label: '1:1', value: '1:1' },
               { label: '16:9', value: '16:9' },
               { label: '9:16', value: '9:16' },
+            ]}
+          />
+
+          <SelectTrigger
+            value={numImages}
+            onChange={setNumImages}
+            options={[
+              { label: '1', value: '1' },
+              { label: '2', value: '2' },
+              { label: '4', value: '4' },
             ]}
           />
         </div>

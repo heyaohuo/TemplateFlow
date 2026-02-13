@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Sparkles,
   Gift,
@@ -9,8 +9,11 @@ import {
   Share2,
   RotateCcw,
   RotateCw,
+  Workflow,
 } from 'lucide-react'
 import HeaderTitle from './HeaderTitle'
+import Link from 'next/link'
+
 
 interface HeaderProps {
   headerTitle: string
@@ -39,14 +42,12 @@ export default function Header({
     >
       {/* ================= 左侧 ================= */}
       <div className="flex items-center gap-2 pointer-events-auto">
-        <div
-          className="w-10 h-10 rounded-xl
-                     bg-gradient-to-br from-indigo-500 to-purple-600
-                     flex items-center justify-center
-                     shadow-lg shadow-indigo-500/20"
+        <Link
+        href={"/"}
+          className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform"
         >
-          <Sparkles size={20} className="text-white" />
-        </div>
+          <Workflow size={18} className="text-white" />
+        </Link>
 
         <HeaderTitle
           headerTitle={headerTitle}
@@ -135,6 +136,8 @@ export default function Header({
           <Share2 size={16} className="text-slate-700" />
         </button>
       </div>
+
+
     </div>
   )
 }

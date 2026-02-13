@@ -38,3 +38,8 @@ export interface Point {
   x: number;
   y: number;
 }
+
+export interface MessageState {
+  type: 'success' | 'error' | '';
+  text: string;
+}

@@ -3,7 +3,9 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { 
   X, ImageIcon,Layers,
-  User, Sparkles, Bot, Star, CheckCircle, Gamepad2,
+  User,
+  CheckCircle,
+  XCircle
 } from 'lucide-react';
 
 import PromptNode from '@/components/promptNode';
@@ -12,7 +14,8 @@ import { SubjectNode } from '@/components/subject-node';
 import ContextMenu from '@/components/content-menu';
 import { 
   WorkflowNode, Connection, CanvasTransform, Point, 
-  NodeType, LifeStage, PetSpecies, PetEmotion 
+  NodeType,
+  MessageState
 } from '@/lib/types/nodeType';
 import { allPrompts, testprompts } from '@/lib/total_prompts';
 import { PromptTemplatePanel } from '@/components/PromptTemplatePanel';
@@ -21,23 +24,26 @@ import Header from '@/components/header';
 import WorkspaceBottom from '@/components/WorkspaceBottom';
 import { useHistory } from '@/hooks/useHistory';
 import { isVideoUrl } from '@/utils/urlType';
+import { generateId } from '@/utils/idGenerate';
+import KeyInputModal from '@/components/KeyInputModal';
+import { WorkflowStorage } from '@/utils/storageUtils';
 
 const App: React.FC = () => {
-  const initialNodes: WorkflowNode[] = [
-    { 
-      id: 'fetch_user', 
-      x: 500, 
-      y: 250, 
-      label: testprompts?.[0]?.title || "User", 
-      type: 'Subject', 
-      color: 'bg-blue-100 text-blue-600', 
-      icon: <User size={18} />,
-      imageUrl: testprompts?.[0]?.prompt_img,
-      prompt: testprompts?.[0]?.prompt
-    }
-  ]
+  // const initialNodes: WorkflowNode[] = [
+  //   { 
+  //     id: 'fetch_user', 
+  //     x: 500, 
+  //     y: 250, 
+  //     label: testprompts?.[0]?.title || "User", 
+  //     type: 'Subject', 
+  //     color: 'bg-blue-100 text-blue-600', 
+  //     icon: <User size={18} />,
+  //     imageUrl: testprompts?.[0]?.prompt_img,
+  //     prompt: testprompts?.[0]?.prompt
+  //   }
+  // ]
   // --- 状态管理 ---
-  const [nodes, setNodes] = useState<WorkflowNode[]>(initialNodes);
+  const [nodes, setNodes] = useState<WorkflowNode[]>([]);
 
   const [connections, setConnections] = useState<Connection[]>([]);
   
@@ -89,10 +95,17 @@ const App: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
 
+  // 自动保存状态
+  const [isAutoSaving, setIsAutoSaving] = useState(false); // 可选：用于显示保存状态
+  const [message, setMessage] = useState<MessageState>({ type: '', text: '' });
+  
+  // 用户输入 fal ai key
+  const [showKeyModal, setShowKeyModal] = useState(false)
+
   // 1. 初始化
 // 2. 初始化历史记录 (传入初始状态)
 const { saveHistory, undo, redo, canUndo, canRedo } = useHistory({ 
-  nodes: initialNodes, 
+  nodes: [] as WorkflowNode[], 
   connections: connections 
 });
 
@@ -194,12 +207,63 @@ useEffect(() => {
     };
   }, [canvasRef]); // 依赖项包含 ref
 
+
+  // 1. 初始化时加载数据
+  useEffect(() => {
+    const localData = WorkflowStorage.load();
+    if (localData) {
+      setNodes(localData.nodes);
+      setConnections(localData.connections);
+    } else {
+      // 如果没有本地数据，可以设置一些默认的初始节点
+      // setNodes(defaultNodes);
+    }
+  }, []);
+
+  // 2. 手动保存触发函数
+  const handleSave = () => {
+    WorkflowStorage.save(nodes, connections);
+    alert('保存成功！');
+  };
+
+  // 自动保存逻辑（自带防抖）
+  useEffect(() => {
+    // 如果画布是空的（例如刚初始化），可能不需要覆盖本地数据
+    // 你可以根据实际业务逻辑调整这个判断条件
+    if (nodes.length === 0 && connections.length === 0) return;
+
+    setIsAutoSaving(true);
+
+    // 设置一个延迟定时器（例如 3000 毫秒）
+    const timerId = setTimeout(() => {
+      WorkflowStorage.save(nodes, connections);
+      console.log('自动保存完成');
+      setIsAutoSaving(false);
+    }, 3000);
+
+    // 👇 核心机制：清理函数
+    // 每次 nodes 或 connections 变化触发新的 useEffect 之前，
+    // React 会先执行这个清理函数，把上一次还没来得及执行的 setTimeout 取消掉。
+    // 这样就保证了只有在用户停止操作 1000 毫秒后，才会真正执行 save 方法。
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [nodes, connections]); // 依赖项：只要节点或连线变化，就重新计时
+
   // 监听孵化
   // useEffect(() => {
   //   if (crackLevel >= 100 && lifeStage === 'egg') {
   //     setLifeStage('born');
   //   }
   // }, [crackLevel, lifeStage]);
+
+  // 消息自动关闭
+  useEffect(() => {
+    if (message.text) {
+      const timer = setTimeout(() => setMessage({ type: '', text: '' }), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   // 坐标转换：屏幕像素 -> 画布逻辑坐标
   const screenToCanvas = useCallback((clientX: number, clientY: number) => {
@@ -463,54 +527,58 @@ useEffect(() => {
   const zoomReset = () => { setScale(1); setCanvasTransform({x:0, y:0}); };
 
   // --- 节点操作 ---
-  const addNodeAtPos = (
-    type: NodeType, 
-    canvasX: number, 
-    canvasY: number, 
-    extra = {}, 
-    sourceNodeId?: string, 
-    inputType?: string
-  ) => {
-    const newNodeId = `${type.toLowerCase()}_${Date.now()}`;
-    
-    // 1. 构建新节点
-    const newNode: WorkflowNode = {
-      id: newNodeId,
-      type,
-      x: canvasX,
-      y: canvasY,
-      mode: inputType || "notype",
-      status: 'idle',
-      ...extra
-    };
-  
-    // 2. 计算新的节点列表
-    const nextNodes = [...nodes, newNode];
-    
-    // 3. 处理连线逻辑并计算新的连线列表
-    let nextConnections = [...connections];
-    if (sourceNodeId) {
-      const newConnection: Connection = {
-        id: `${sourceNodeId}-${newNodeId}-${Date.now()}`,
-        from: sourceNodeId,
-        to: newNodeId,
-      };
-      nextConnections = [...nextConnections, newConnection];
-    }
-  
-    // 4. 同步更新 React 状态（用于渲染）
-    setNodes(nextNodes);
-    setConnections(nextConnections);
-  
-    // 5. ✨ 核心：将完整的新状态快照存入历史记录
-    // 这样撤销时，就能精确回到添加这个节点之前的状态
-    saveHistory({
-      nodes: nextNodes,
-      connections: nextConnections
-    });
-  
-    setMenuConfig(null);
+const addNodeAtPos = (
+  type: NodeType,
+  canvasX: number,
+  canvasY: number,
+  extra = {},
+  sourceNodeId?: string,
+  inputType?: string,
+  selfId?: string
+) => {
+  const newNodeId = selfId || generateId();
+
+  const newNode: WorkflowNode = {
+    id: newNodeId,
+    type,
+    x: canvasX,
+    y: canvasY,
+    mode: inputType || "notype",
+    status: 'idle',
+    ...extra
   };
+
+  // ✅ 用函数式更新 nodes
+  setNodes(prevNodes => {
+    const nextNodes = [...prevNodes, newNode];
+
+    // ⚠️ 注意：history 不能再用外部 nodes
+    setConnections(prevConnections => {
+      let nextConnections = [...prevConnections];
+
+      if (sourceNodeId) {
+        nextConnections.push({
+          id: `${sourceNodeId}-${newNodeId}-${Date.now()}`,
+          from: sourceNodeId,
+          to: newNodeId,
+        });
+      }
+
+      // ✅ 在“最终态”里存 history
+      saveHistory({
+        nodes: nextNodes,
+        connections: nextConnections
+      });
+
+      return nextConnections;
+    });
+
+    return nextNodes;
+  });
+
+  setMenuConfig(null);
+};
+
   // const addNodeAtPos = (type: NodeType, canvasX: number, canvasY: number, extra = {}, sourceNodeId?: string, inputType?:string) => {
   //   const newNodeId = `${type.toLowerCase()}_${Date.now()}`;
   //   const newNode: WorkflowNode = {
@@ -716,7 +784,7 @@ const importWorkflow = (event: React.ChangeEvent<HTMLInputElement>) => {
         // 2. 处理连线：生成新 ID 并修正 from/to 引用
         const restoredConnections = data.edges.map((e: any) => ({
           // 修复 "unique key prop" 错误的核心：分配新 ID
-          id: `conn_${Math.random().toString(36).substr(2, 9)}`, 
+          id: e.id || `conn_${Math.random().toString(36).substr(2, 9)}`,
           from: idMap[e.from] || e.from,
           to: idMap[e.to] || e.to,
           label: e.label || ""
@@ -746,6 +814,7 @@ const importWorkflow = (event: React.ChangeEvent<HTMLInputElement>) => {
           prompt: n.prompt || "",
         })),
         edges: connections.map(c => ({
+          id: c.id,
           from: c.from,
           to: c.to,
           label: c.label || ""
@@ -765,7 +834,10 @@ const importWorkflow = (event: React.ChangeEvent<HTMLInputElement>) => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+
+      setMessage({ type: 'success', text: '导出成功！' });
     } catch (error) {
+      setMessage({ type: 'error', text: '导出失败，请重试' });
       console.error("Failed to export workflow:", error);
     }
   };
@@ -943,20 +1015,23 @@ const importWorkflow = (event: React.ChangeEvent<HTMLInputElement>) => {
               )} */}
               {node.type === "Subject" && (
                 <SubjectNode 
+                  key={node.id} 
                   node={node}
                   draggingNodeId={draggingNodeId}
                   snapTargetId={snapTargetId}
                   linkingFromId={linkingFromId}
                   nodes={nodes}
+                  setShowKeyModal={setShowKeyModal}
                   onPreview={(url) => setPreviewImage(url)}
                   setNodes={setNodes}
                   startLinking={startLinking}
                   connections={connections}
-                  onAddNode={(type,x, y,data, sourceId) => addNodeAtPos(type, x, y, data, sourceId)}
+                  onAddNode={(type,x, y,data, sourceId,selfId) => addNodeAtPos(type, x, y, data, sourceId,selfId)}
                   onMouseDown={(e) => handleNodeMouseDown(e, node)}
                 />
               )}
               {node.type === 'IMAGE' && (<ImageNode 
+                key={node.id} 
                 node={node}
                 draggingNodeId={draggingNodeId}
                 snapTargetId={snapTargetId}
@@ -967,8 +1042,10 @@ const importWorkflow = (event: React.ChangeEvent<HTMLInputElement>) => {
                 />)}
               {node.type === 'Input' && (
               <PromptNode 
+                key={node.id} 
                 node={node}
                 nodes={nodes}
+                setShowKeyModal={setShowKeyModal}
                 draggingNodeId={draggingNodeId}
                 connections={connections}
                 snapTargetId={snapTargetId}
@@ -1030,30 +1107,52 @@ const importWorkflow = (event: React.ChangeEvent<HTMLInputElement>) => {
         )}
       </main>
 
+      {/* 消息 Toast */}
+        {message.text && (
+          <div className={`fixed bottom-4 right-4 z-50 p-4 rounded-lg flex items-center gap-3 shadow-lg animate-in slide-in-from-right duration-300 ${message.type === 'success' ? 'bg-white text-emerald-700 border-l-4 border-emerald-500' : 'bg-white text-rose-700 border-l-4 border-rose-500'}`}>
+            {message.type === 'success' ? <CheckCircle size={20} /> : <XCircle size={20} />}
+            <span className="font-medium">{message.text}</span>
+          </div>
+        )}
       {/* 全屏预览 */}
-      {previewImage && (
-  <div
-    className="fixed inset-0 z-[100] bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-8"
-    onClick={() => setPreviewImage(null)}
-  >
-    {isVideoUrl(previewImage) ? (
-      <video
-        src={previewImage}
-        controls
-        autoPlay
-        onClick={(e) => e.stopPropagation()}
-        className="max-w-full max-h-full rounded-xl shadow-2xl object-contain bg-black"
-      />
-    ) : (
-      <img
-        src={previewImage}
-        className="max-w-full max-h-full rounded-xl shadow-2xl object-contain"
-        alt="full preview"
-        onClick={(e) => e.stopPropagation()}
-      />
+          {previewImage && (
+      <div
+        className="fixed inset-0 z-[100] bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-8"
+        onClick={() => setPreviewImage(null)}
+      >
+        {isVideoUrl(previewImage) ? (
+          <video
+            src={previewImage}
+            controls
+            autoPlay
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-full max-h-full rounded-xl shadow-2xl object-contain bg-black"
+          />
+        ) : (
+          <img
+            src={previewImage}
+            className="max-w-full max-h-full rounded-xl shadow-2xl object-contain"
+            alt="full preview"
+            onClick={(e) => e.stopPropagation()}
+          />
+        )}
+      </div>
     )}
-  </div>
-)}
+
+    {/* 弹窗 */}
+          {/* 底部弹窗 */}
+          <KeyInputModal
+            open={showKeyModal}
+            onClose={() => setShowKeyModal(false)}
+            onUseCredits={() => {
+              localStorage.removeItem("fal_api_key")
+              localStorage.setItem("fal_mode", "credits")
+            }}
+            onUseUserKey={(key) => {
+              localStorage.setItem("fal_api_key", key)
+              localStorage.setItem("fal_mode", "user-" + generateId())
+            }}
+          />
 
     </div>
   );

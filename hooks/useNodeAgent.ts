@@ -6,20 +6,31 @@ type Sleep = (ms: number) => Promise<void>
 const sleep: Sleep = (ms) =>
   new Promise((resolve) => setTimeout(resolve, ms))
 
-const mockImageResult = (tag: string): { type: 'image'; url: string } => {
+const mockImageResult = (tag: string, numImages: string = "1"): [{ type: 'image'; url: string }] => {
   console.log(`✅ mock ${tag} success`)
-  return {
+
+  const nums = parseInt(numImages, 10);
+  let finalUrls = [];
+  for(let i = 0; i < nums; i++) {
+    finalUrls.push({
+      type: 'image',
+      url: `https://store.coinminer.one/PR_image.jpeg`,
+    });
+  }
+
+  return finalUrls as [{ type: 'image'; url: string }];
+  return [{
     type: 'image',
     url: 'https://store.coinminer.one/PR_image.jpeg',
-  }
+  }]
 }
 
-const mockVideoResult = (tag: string): { type: 'video'; url: string } => {
+const mockVideoResult = (tag: string): [{ type: 'video'; url: string }] => {
   console.log(`🎬 mock ${tag} success`)
-  return {
+  return [{
     type: 'video',
     url: 'https://store.coinminer.one/PR_video.mp4',
-  }
+  }]
 }
 
 export const handlePrompt = async ({
@@ -33,18 +44,19 @@ export const handlePrompt = async ({
   id: string
   prompt: string
   model: AllModelIds
-  mode: 'text' | 'image' | 'video'
+  mode: string
   base64Images?: string[]
   extra?: {
+    numImages?: string
     duration?: string
     resolution?: string
     ratio?: string
     [key: string]: any
   }
-}): Promise<{
+}): Promise<[{
   type: 'image' | 'video'
   url: string
-}> => {
+}]> => {
   console.log('============================')
   console.log('🧠 handlePrompt invoked')
   console.log('node id:', id)
@@ -64,13 +76,21 @@ export const handlePrompt = async ({
 
     const model_id = model;
     const ratioValue = getRatioValue(model_id, extra.ratio || '1:1');
+    const numImages = extra?.numImages || '1';
+
+    const falKey = localStorage.getItem('fal_api_key');
+
+    const falHeaders = {
+      'Content-Type': 'application/json',
+    ...(falKey ? { 'x-user-fal-key': falKey } : {}),
+    }
     // 判断是否是文生图或者文生视频
     if (mode === 'text' || base64Images?.length === 0 || !base64Images) {
 
       // 直接生成
       const res = await fetch('/api/falai',{
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: falHeaders,
         body: JSON.stringify({
           id,
           prompt: prompt,
@@ -83,7 +103,7 @@ export const handlePrompt = async ({
         }),
       })
       const data = await res.json()
-      return data;
+      return data.urls;
 
     } else if(mode === "image" || mode === "video") {
       // 如果是图生图或者图生视频
@@ -103,12 +123,13 @@ export const handlePrompt = async ({
       // 然后将url等信息使用fal ai生成图片和视频
       const res = await fetch('/api/falai',{
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: falHeaders,
         body: JSON.stringify({
           id,
           prompt: prompt,
           model_id: model_id,
           urls:urls,
+          numImages,
           mode: 'image',
           aspectRatio: ratioValue,
           imageConfig: {
@@ -119,24 +140,24 @@ export const handlePrompt = async ({
       })
 
       const data = await res.json()
-      return data;
+      return data.urls;
     }
 
   }
 
   // 真正调用 handle_node 获取结果
-  const result = await handle_node();
+  // const result = await handle_node();
 
-/*   if(mode === 'text' || base64Images?.length === 0 || !base64Images) {
+if(mode === 'text' || base64Images?.length === 0 || !base64Images) {
     await sleep(2000)
     return mockImageResult('text-to-image')
   } else if(mode === "image" && base64Images && base64Images.length > 0) {
     await sleep(2000)
-    return mockImageResult('image-to-image')
+    return mockImageResult('image-to-image', extra?.numImages && extra.numImages)
   } else if(mode === "video" && base64Images && base64Images.length > 0) {
     await sleep(3000)
     return mockVideoResult('image-to-video')
-  } */
+  } 
 
 
 /*  //  🔹 文生图
