@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   web:
-    image: my-next-app
-    container_name: my-next-app
+    image: template-flow:latest
+    container_name: template-flow:latest
     ports:
       - "3000:3000"
     restart: unless-stopped
