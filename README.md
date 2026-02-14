@@ -97,13 +97,19 @@ This project supports one-command startup using Docker Compose.
 
 - Docker Compose v2
 
-1️⃣ Prepare environment variables
-
-Create a .env file in the project root (refer to .env.example if available).
-
-2️⃣ Start the app
+1️⃣ Pull image
 
 ```bash
+
+docker pull yaohuohe/template-flow:latest
+```
+
+> Create a .env file in the project root (refer to .env.example if available).
+
+2️⃣ Start container
+
+```bash
+
 docker compose up -d
 ```
 

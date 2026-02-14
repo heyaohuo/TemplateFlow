@@ -3,9 +3,9 @@ version: "3.9"
 services:
   web:
     image: template-flow:latest
-    container_name: template-flow:latest
+    container_name: template-flow
     ports:
       - "3000:3000"
-    restart: unless-stopped
+    restart: always
     env_file:
       - .env
