@@ -46,9 +46,8 @@ jobs:
         with:
           context: .
           push: true
-          # 这里会自动使用上面生成的标签名
-          tags: ${{ id.meta.outputs.tags }}
-          labels: ${{ id.meta.outputs.labels }}
-          # 开启缓存，下次构建会快得多
+          # 修正这里：去掉 id.，改为 steps.
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
