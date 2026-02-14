@@ -3,11 +3,13 @@ name: Docker Image CI/CD
 on:
   push:
     branches: [ "main" ]
+    # 增加对标签的监听，如果你推送 v1.0.0 这种标签，镜像也会自动打上对应标签
+    tags:
+      - 'v*'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    # 授予 GitHub Actions 推送镜像到 GHCR 的权限
     permissions:
       contents: read
       packages: write
@@ -16,14 +18,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # --- 登录到 Docker Hub ---
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # --- 登录到 GitHub Container Registry (GHCR) ---
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
@@ -31,23 +31,38 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # --- 提取元数据 (用于自动打标签，如 :latest 或 :v1.0.0) ---
+      # --- 1. 提取元数据 (在这里修改名称和 Tags 策略) ---
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/my-next-app
+            # 修改这里为你的新名称
+            ${{ secrets.DOCKERHUB_USERNAME }}/template-flow
             ghcr.io/${{ github.repository }}
+          tags: |
+            # 自动处理：如果是 main 分支就打 latest，如果是 v1.0 标签就打 v1.0
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=ref,event=tag
+            type=sha,format=short
 
-      # --- 构建并推送 ---
+      # --- 2. 构建并推送镜像 ---
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          # 修正这里：去掉 id.，改为 steps.
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # --- 3. 更新 Docker Hub 的 README (Overview) ---
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          # 必须与上面的镜像名一致
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/template-flow
+          short-description: "Build AI workflows visually using reusable templates."
