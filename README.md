@@ -49,7 +49,6 @@ TemplateFlow focuses on clarity, speed, and reuse:
 | Zero-setup templates | ✅ Built-in | ❌ Mostly manual |
 | Beginner friendly | ✅ Drag & run | ❌ Steep learning curve |
 | Template sharing | ✅ JSON-based | ⚠️ Limited |
-| Open source | ✅ 100% | ⚠️ Partial |
 | Creator-focused | ✅ | ❌ Developer-first |
 
 
