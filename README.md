@@ -44,7 +44,7 @@ TemplateFlow focuses on clarity, speed, and reuse:
 
 ## 🆚 TemplateFlow vs Other AI Workflow Tools
 
-| Feature | TemplateFlow | ComfyUI / Others |
+| Feature | TemplateFlow | Others |
 |------|------|------|
 | Zero-setup templates | ✅ Built-in | ❌ Mostly manual |
 | Beginner friendly | ✅ Drag & run | ❌ Steep learning curve |
