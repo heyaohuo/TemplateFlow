@@ -44,7 +44,7 @@ export default function KeyInputModal({
       onUseCredits()
       onClose()
       // 跳转到价格页面 (使用原生 API 替代 Next.js router 以兼容当前环境)
-      window.location.href = '/pricing'
+      window.location.href = 'https://x.com/developer_yan'
     }
   }
 
