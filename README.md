@@ -1,4 +1,4 @@
-# TemplateFlow - Build AI workflows, not prompts.
+# TemplateFlow——A lightweight, node-based visual editor for structuring AI workflows.
 
 
 <p align="center">
@@ -44,12 +44,22 @@ TemplateFlow focuses on clarity, speed, and reuse:
 
 ## 🆚 TemplateFlow vs Other AI Workflow Tools
 
-| Feature | TemplateFlow | Tapnow/Others |
-|------|------|------|
-| Zero-setup templates | ✅ Built-in | ❌ Mostly manual |
-| Beginner friendly | ✅ Drag & run | ❌ Steep learning curve |
-| Template sharing | ✅ JSON-based | ⚠️ Limited |
-| Creator-focused | ✅ | ❌ Developer-first |
+
+Comparison & Scope
+
+ComfyUI: Advanced, node-based power tool for pro-generators. Deep control, steep learning curve.
+
+TemplateFlow: Lightweight, template-first workflow manager. Focus on speed and reuse for daily AI tasks.
+
+
+
+## 🆚 TemplateFlow Built with:
+
+- Frontend: Next.js 15, React Flow, TailwindCSS
+
+- Backend: Node.js, Fal.ai integration
+
+- Deployment: Docker-ready, Local-first
 
 
 🎬 See It In Action
